@@ -135,12 +135,12 @@
                             <span>Kolhapur, MH, India</span>
                         </div>
                     </div>
-                    <form class="contact-form-bento">
+                    <form class="contact-form-bento" action="https://formspree.io/f/xykdrgya" method="POST">
                         <div style="display: flex; gap: 1rem;">
-                            <input type="text" placeholder="ID_NAME" required>
-                            <input type="email" placeholder="SECURE_EMAIL" required>
+                            <input type="text" name="name" placeholder="ID_NAME" required>
+                            <input type="email" name="email" placeholder="SECURE_EMAIL" required>
                         </div>
-                        <textarea placeholder="MESSAGE_DATA_PACKET..." rows="3" required></textarea>
+                        <textarea name="message" placeholder="MESSAGE_DATA_PACKET..." rows="3" required></textarea>
                         <button type="submit" class="btn-primary" style="padding: 0.8rem; width: 100%; font-size: 0.8rem;">SEND_PACKET</button>
                     </form>
                 </div>
