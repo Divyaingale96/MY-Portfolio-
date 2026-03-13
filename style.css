@@ -1,0 +1,184 @@
+/* === NEURAL CORE DASHBOARD (Cyber Noir Bento) === */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-black: #000000;
+    --surface-dark: #080808;
+    --accent-neon: #99ff00; /* Acid Green */
+    --accent-cyan: #00f3ff;
+    --accent-indigo: #6366f1;
+    --text-white: #ffffff;
+    --text-dim: #555555;
+    --border: rgba(255, 255, 255, 0.05);
+    
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-black);
+    color: var(--text-white);
+    font-family: var(--font-heading);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Custom Scrollbar (Invisible but functional) */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-black); }
+::-webkit-scrollbar-thumb { background: var(--accent-neon); border-radius: 10px; }
+
+/* --- BOOTUP SEQUENCE --- */
+#boot-loader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-black);
+    z-index: 9999;
+    display: flex;
+    align-items: center; justify-content: center;
+    flex-direction: column;
+    font-family: var(--font-mono);
+}
+#boot-text { color: var(--accent-neon); font-size: 0.9rem; text-align: left; max-width: 400px; line-height: 1.5; }
+
+/* --- BENTO GRID LAYOUT --- */
+.dashboard {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem 5rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 1.5rem;
+    perspective: 1000px;
+}
+
+.tile {
+    background: var(--surface-dark);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 2.5rem;
+}
+.tile:hover {
+    border-color: rgba(153, 255, 0, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
+}
+
+.tile-tag {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+}
+
+/* Specific Tile Spans */
+.tile-hero { grid-column: span 8; grid-row: span 1; display: flex; align-items: center; gap: 3rem; }
+.tile-pfp {
+    width: 180px; height: 180px;
+    border-radius: 20px;
+    border: 2px solid var(--accent-neon);
+    background: #111;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.tile-pfp img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.2); }
+
+.tile-3d { 
+    grid-column: span 4; grid-row: span 2; 
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at center, #0a0a0a, #000);
+}
+#canvas-3d { width: 100%; height: 100%; pointer-events: none; }
+
+.tile-skills { grid-column: span 4; grid-row: span 1; }
+.tile-experience { grid-column: span 4; grid-row: span 2; }
+.tile-projects { grid-column: span 8; grid-row: span 2; }
+.tile-chat { grid-column: span 4; grid-row: span 1; padding: 0 !important; }
+.tile-contact { grid-column: span 4; grid-row: span 1; }
+
+/* --- CONTACT BENTO --- */
+.contact-grid-inner { display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-methods { display: flex; flex-direction: column; gap: 0.75rem; }
+.method { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); }
+.method i { color: var(--accent-neon); }
+
+.contact-form-bento { display: flex; flex-direction: column; gap: 0.75rem; }
+.contact-form-bento input, .contact-form-bento textarea {
+    background: #111; border: 1px solid var(--border); color: white; padding: 0.75rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.75rem; outline: none;
+}
+.contact-form-bento input:focus, .contact-form-bento textarea:focus { border-color: var(--accent-neon); }
+
+/* --- HERO TEXT --- */
+.hero-text h1 { font-size: 4.5rem; font-weight: 800; letter-spacing: -0.06em; line-height: 0.9; margin-bottom: 1rem; }
+.hero-text .accent { color: var(--accent-neon); }
+.hero-text .subtitle { color: var(--text-dim); font-size: 1.1rem; max-width: 450px; }
+.social-bar { display: flex; gap: 1.5rem; margin-top: 1.5rem; }
+.social-bar a { color: var(--accent-neon); font-size: 1.5rem; transition: 0.3s; }
+.social-bar a:hover { color: white; transform: scale(1.1); }
+
+/* --- SKILLS GRID --- */
+.skills-box { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.skill-chip {
+    padding: 0.5rem 1rem;
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--accent-cyan);
+}
+
+/* --- PROJECTS BENTO --- */
+.projects-bento {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    height: 100%;
+}
+.project-item {
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: 0.3s;
+    display: flex; flex-direction: column; justify-content: space-between;
+}
+.project-item:hover { border-color: var(--accent-neon); transform: scale(1.02); }
+.project-item i { font-size: 1.5rem; color: var(--accent-neon); margin-bottom: 1rem; }
+.project-item h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+/* --- CHAT SHELL --- */
+.chat-shell {
+    height: 100%; display: flex; flex-direction: column;
+    background: #050505;
+}
+.chat-output { flex: 1; padding: 1.5rem; overflow-y: auto; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.4; color: var(--accent-cyan); }
+.chat-input-line {
+    padding: 1rem; border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.chat-input-line input {
+    background: transparent; border: none; color: white; flex: 1; outline: none; font-family: var(--font-mono); font-size: 0.85rem;
+}
+.shell-prefix { color: var(--accent-neon); }
+
+/* --- REVEAL --- */
+.reveal { opacity: 0; transform: scale(0.95) translateY(20px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: scale(1) translateY(0); }
+
+/* --- MOBILE --- */
+@media (max-width: 1000px) {
+    .dashboard { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .tile { grid-column: span 1 !important; grid-row: auto !important; }
+    .tile-hero { flex-direction: column; text-align: center; }
+}
